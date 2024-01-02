@@ -50,15 +50,16 @@ public class Product {
     private LocalDateTime createdAt;
 
     @ManyToMany
-    @JoinTable(
-        name = "product_style",
-        joinColumns = @jakarta.persistence.JoinColumn(name = "product_id"),
-        inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "style_id")
-    )
+    @JoinTable(name = "product_style",
+            joinColumns = @jakarta.persistence.JoinColumn(name = "product_id"),
+            inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "style_id"))
     private List<Style> styles;
 
     @OneToMany(mappedBy = "product")
     private List<Outfit> outfits;
+
+    @ManyToMany(mappedBy = "products")
+    private List<Order> orders;
 
 
 }

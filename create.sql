@@ -4,7 +4,7 @@ CREATE TABLE product (
     "category" VARCHAR(10),
     brand VARCHAR(255),
     size VARCHAR(10),
-    price DECIMAL(10, 2) DEFAULT 99999999,
+    price NUMERIC(10, 2) DEFAULT 99999999,
     "description" TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -35,7 +35,7 @@ CREATE TABLE "order" (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES "user"(id),
     quantity INT DEFAULT 0,
-    bill DECIMAL(10, 2) DEFAULT 0,
+    bill NUMERIC(10, 2) DEFAULT 0,
     "status" VARCHAR(10) DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
