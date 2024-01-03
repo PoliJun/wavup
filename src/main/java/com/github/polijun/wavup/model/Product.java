@@ -44,6 +44,9 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "quantity")
+    private Long quantity;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
@@ -56,8 +59,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<Outfit> outfits;
 
-    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
+
+    // @ManyToMany(mappedBy = "products")
+    // private List<Order> orders;
+
 
 
 }
