@@ -1,5 +1,6 @@
 package com.github.polijun.wavup.controller;
 
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +34,13 @@ public class UserController {
         return ResponseEntity.ok(foundUser);
     }
 
-    @GetMapping("find/{id}")
+    @GetMapping("/find")
+    public ResponseEntity<List<User>> getAllUser() {
+        List<User> foundUsers = userService.findAllUsers();
+        return ResponseEntity.ok(foundUsers);
+    }
+
+    @GetMapping("/find/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User foundUser = userService.findUserById(id);
         return ResponseEntity.ok(foundUser);

@@ -4,7 +4,7 @@ import java.util.List;
 import com.github.polijun.wavup.model.User;
 
 public interface UserService {
-    List<User> findAll();
+    List<User> findAllUsers();
 
     User findUserById(Long id);
 
