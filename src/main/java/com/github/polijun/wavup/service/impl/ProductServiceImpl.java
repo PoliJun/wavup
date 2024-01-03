@@ -80,6 +80,15 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProduct(Long id, Product product) {
         Product updatingProduct =
                 productRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Product"));
+        updatingProduct.setBrand(product.getBrand());
+        updatingProduct.setCategory(product.getCategory());
+        updatingProduct.setDescription(product.getDescription());
+        updatingProduct.setName(product.getName());
+        updatingProduct.setOutfits(product.getOutfits());
+        updatingProduct.setPrice(product.getPrice());
+        updatingProduct.setQuantity(product.getQuantity());
+        updatingProduct.setSize(product.getSize());
+        updatingProduct.setStyles(product.getStyles());
         return productRepository.save(updatingProduct);
     }
 

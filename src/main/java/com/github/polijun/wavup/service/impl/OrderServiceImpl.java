@@ -27,7 +27,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order updateOrder(Long id, Order order) {
+    public Order updateOrderById(Long id, Order order) {
         Order persistedOrder =
                 orderRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Order"));
         persistedOrder.setBill(order.getBill());
@@ -44,6 +44,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrderById(Long id) {
         orderRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Order findOrderById(Long id) {
+        return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Order"));
     }
 
 }

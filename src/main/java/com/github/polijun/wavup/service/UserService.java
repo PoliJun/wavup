@@ -6,11 +6,15 @@ import com.github.polijun.wavup.model.User;
 public interface UserService {
     List<User> findAll();
 
-    User findById(Long id);
+    User findUserById(Long id);
 
-    User create(User user);
+    User createUser(User user);
 
-    User update(Long id, User user);
+    User updateUser(Long id, User user);
 
-    void delete(Long id);
+    void deleteUser(Long id);
+
+    User findUserByUsername(String username);
+
+    User validateUserByUsernameAndPassword(String username, String password);
 }

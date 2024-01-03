@@ -7,9 +7,11 @@ public interface OrderService {
 
     List<Order> findAllOrders();
 
+    Order findOrderById(Long id);
+
     Order createOrder(Order order);
 
-    Order updateOrder(Long id, Order order);
+    Order updateOrderById(Long id, Order order);
 
     void deleteOrderById(Long id);
 }
