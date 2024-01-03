@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Outfit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "path", nullable = false)
     private String path;
