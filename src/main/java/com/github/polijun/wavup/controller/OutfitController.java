@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.polijun.wavup.model.Outfit;
-import com.github.polijun.wavup.model.Outfit;
 import com.github.polijun.wavup.service.OutfitService;
 import lombok.AllArgsConstructor;
 
