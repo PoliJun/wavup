@@ -28,7 +28,7 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/all")
     public ResponseEntity<List<Product>> getAllProduct() {
         List<Product> foundedProducts = productService.findAllProducts();
         return ResponseEntity.ok(foundedProducts);

@@ -16,7 +16,7 @@ import com.github.polijun.wavup.model.User;
 import com.github.polijun.wavup.service.UserService;
 import lombok.AllArgsConstructor;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor
@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.ok(foundUser);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUser() {
         List<User> foundUsers = userService.findAllUsers();
         return ResponseEntity.ok(foundUsers);

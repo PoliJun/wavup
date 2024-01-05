@@ -34,7 +34,7 @@ public class StyleController {
         return ResponseEntity.ok(foundStyle);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/all")
     public ResponseEntity<List<Style>> getAllStyle() {
         List<Style> foundedStyles = styleService.findAllStyle();
         return ResponseEntity.ok(foundedStyles);

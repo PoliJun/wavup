@@ -27,7 +27,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedOrder);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/all")
     public ResponseEntity<List<Order>> getAllOrder() {
         List<Order> foundedOrders = orderService.findAllOrders();
         return ResponseEntity.ok(foundedOrders);

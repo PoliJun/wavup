@@ -27,7 +27,7 @@ public class OutfitController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedOutfit);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/all")
     public ResponseEntity<List<Outfit>> getAllOutfit() {
         List<Outfit> foundedOutfit = outfitService.findAllOutfits();
         return ResponseEntity.ok(foundedOutfit);
