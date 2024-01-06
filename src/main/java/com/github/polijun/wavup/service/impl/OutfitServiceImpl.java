@@ -34,7 +34,7 @@ public class OutfitServiceImpl implements OutfitService {
 
         Outfit persistedOutfit =
                 outfitRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Outfit"));
-        persistedOutfit.setPath(outfit.getPath());
+        persistedOutfit.setFileName(outfit.getFileName());
         persistedOutfit.setProduct(outfit.getProduct());
 
         return outfitRepository.save(persistedOutfit);
