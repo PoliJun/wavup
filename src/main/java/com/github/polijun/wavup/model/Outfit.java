@@ -24,7 +24,7 @@ public class Outfit {
     private Long id;
 
     @Column(name = "path", nullable = false)
-    private String path;
+    private String fileName;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
