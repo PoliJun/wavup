@@ -52,4 +52,10 @@ public class OrderController {
         orderService.deleteOrderById(id);
         return ResponseEntity.ok("Product has been deleted.");
     }
+
+    @GetMapping("/finduser/{userId}")
+    public ResponseEntity<List<Order>> getOrderByUserId(@PathVariable Long userId) {
+        List<Order> foundedOrders = orderService.findOrdersByUserId(userId);
+        return ResponseEntity.ok(foundedOrders);
+    }
 }

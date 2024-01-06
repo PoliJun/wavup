@@ -52,4 +52,10 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Order"));
     }
 
+
+    @Override
+    public List<Order> findOrdersByUserId(Long userId) {
+        return orderRepository.findByUserId(userId);
+    }
+
 }

@@ -7,6 +7,8 @@ public interface OrderService {
 
     List<Order> findAllOrders();
 
+    List<Order> findOrdersByUserId(Long userId);
+
     Order findOrderById(Long id);
 
     Order createOrder(Order order);

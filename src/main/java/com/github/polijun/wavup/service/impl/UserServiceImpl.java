@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
         savedUser.setEmail(user.getEmail());
         savedUser.setPassword(user.getPassword());
         savedUser.setRole(user.getRole());
+        savedUser.setOrders(user.getOrders());
 
         return userRepository.save(savedUser);
     }

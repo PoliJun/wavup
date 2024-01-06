@@ -8,6 +8,8 @@ public interface OutfitService {
 
     Outfit findOutfitById(Long id);
 
+    List<Outfit> findOutfitByProductId(Long productId);
+
     Outfit createOutfit(Outfit outfit);
 
     Outfit updateOutfit(Long id, Outfit outfit);

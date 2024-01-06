@@ -53,4 +53,10 @@ public class OutfitController {
         outfitService.deleteOutfitById(id);
         return ResponseEntity.ok("item has been deleted.");
     }
+
+    @GetMapping("/findproduct/{productId}")
+    public ResponseEntity<List<Outfit>> getOutfitByProductId(@PathVariable Long productId) {
+        List<Outfit> foundOutfit = outfitService.findOutfitByProductId(productId);
+        return ResponseEntity.ok(foundOutfit);
+    }
 }

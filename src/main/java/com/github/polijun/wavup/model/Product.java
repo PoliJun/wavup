@@ -2,7 +2,10 @@ package com.github.polijun.wavup.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,14 +57,17 @@ public class Product {
     @JoinTable(name = "product_style",
             joinColumns = @jakarta.persistence.JoinColumn(name = "product_id"),
             inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "style_id"))
+    @JsonManagedReference
     private List<Style> styles;
 
     @OneToMany(mappedBy = "product")
-    private List<Outfit> outfits;
+    @JsonManagedReference
+    private List<Outfit> outfits = new ArrayList<>();
 
 
-    // @ManyToMany(mappedBy = "products")
-    // private List<Order> orders;
+    @ManyToMany(mappedBy = "products")
+    @JsonBackReference
+    private List<Order> orders;
 
 
 

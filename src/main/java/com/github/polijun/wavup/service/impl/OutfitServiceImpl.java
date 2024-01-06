@@ -45,5 +45,11 @@ public class OutfitServiceImpl implements OutfitService {
         outfitRepository.deleteById(id);
     }
 
+    @Override
+    public List<Outfit> findOutfitByProductId(Long productId) {
+        // TODO Auto-generated method stub
+        return outfitRepository.findByProductId(productId);
+    }
+
 
 }
