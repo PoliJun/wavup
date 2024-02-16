@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-WavupApplication<wavup>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.github.polijun.wavup.WavupApplication",
+            "projectName": "wavup",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
