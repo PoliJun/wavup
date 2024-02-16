@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface OutfitRepository extends JpaRepository<Outfit, Long> {
 
-    List<Outfit> findByProductId(Long productId);
+    List<Outfit> findByProduc(Long productId);
 
 }

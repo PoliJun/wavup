@@ -1,63 +1,45 @@
 package com.github.polijun.wavup.controller;
 
-import java.util.List;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.github.polijun.wavup.model.User;
 import com.github.polijun.wavup.service.UserService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
+import java.util.List;
+
 @RestController
-@RequestMapping("/user")
-@AllArgsConstructor
+@RequestMapping("/users")
 public class UserController {
+
     private final UserService userService;
 
-    @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User savedUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody User userLogin) {
-        User foundUser = userService.validateUserByUsernameAndPassword(userLogin.getUsername(),
-                userLogin.getPassword());
-        return ResponseEntity.ok(foundUser);
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUser() {
-        List<User> foundUsers = userService.findAllUsers();
-        return ResponseEntity.ok(foundUsers);
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User foundUser = userService.findUserById(id);
-        return ResponseEntity.ok(foundUser);
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateUserById(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.updateUser(id, user);
-        return ResponseEntity.ok(updatedUser);
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userService.updateUser(id, user);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUserById(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok("User has been deleted.");
     }
-
 }
