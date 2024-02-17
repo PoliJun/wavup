@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrdersByUser(@NonNull Long userId) {
-        return orderRepository.findByUser(userId);
+        return orderRepository.findByUserId(userId);
     }
 
     @Override

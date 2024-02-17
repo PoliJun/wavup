@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByStyle(@NonNull Long styleId) {
-        return productRepository.findByStyle(styleId);
+        return productRepository.findByStyleId(styleId);
 
     }
 

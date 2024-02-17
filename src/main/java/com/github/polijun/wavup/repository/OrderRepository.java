@@ -11,7 +11,7 @@ import com.github.polijun.wavup.model.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    List<Order> findByUser(Long userId);
+    List<Order> findByUserId(Long userId);
 
 
 }
