@@ -1,5 +1,6 @@
 package com.github.polijun.wavup.model;
 
+import java.math.BigDecimal;
 import java.util.List;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +30,16 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    private String brand;
+
+    private BigDecimal price;
+    
+    private String description;
+
+    private Integer inventory;
 
     @ManyToMany
     @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "product_id"),
