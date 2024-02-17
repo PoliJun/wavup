@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
         orderExist.setStatus(updatedOrder.getStatus());
         orderExist.setUser(updatedOrder.getUser());
         orderExist.setUpdatedAt(LocalDateTime.now());
-        orderExist.setBill();
+        orderExist.setBill(updatedOrder.getBill());
     }
 
     @Override

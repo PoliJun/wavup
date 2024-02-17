@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Product;
+import com.github.polijun.wavup.model.Style;
 import com.github.polijun.wavup.repository.ProductRepository;
 import com.github.polijun.wavup.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -49,8 +50,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByStyle(@NonNull Long styleId) {
-        return productRepository.findByStyleId(styleId);
+    public List<Product> getProductsByStyles(@NonNull List<Style> styles) {
+        return productRepository.findByStylesIn(styles);
 
     }
 
@@ -92,10 +93,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductsByMultiConditions(String brand, @NonNull Long styleId,
+    public List<Product> getProductsByMultiConditions(String brand, @NonNull List<Style> styles,
             @NonNull BigDecimal minPrice, @NonNull BigDecimal maxPrice) {
         List<Product> productsByBrand = getProductsByBrand(brand);
-        List<Product> productsByStyle = getProductsByStyle(styleId);
+        List<Product> productsByStyle = getProductsByStyles(styles);
         List<Product> productsByPrice = getProductsByPriceBetween(minPrice, maxPrice);
 
         List<Product> intersection = new ArrayList<>(productsByBrand);
@@ -104,6 +105,7 @@ public class ProductServiceImpl implements ProductService {
 
         return intersection;
     }
+
 
 
 }

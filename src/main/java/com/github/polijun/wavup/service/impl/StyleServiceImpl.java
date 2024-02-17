@@ -28,7 +28,7 @@ public class StyleServiceImpl implements StyleService {
 
     @Override
     public Style getStyleByStyleName(String styleName) {
-        return styleRepository.findByName(styleName)
+        return styleRepository.findByStyleName(styleName)
                 .orElseThrow(() -> new NonExistsException(STYLE));
     }
 
