@@ -3,7 +3,6 @@ package com.github.polijun.wavup.service;
 import com.github.polijun.wavup.model.Order;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.lang.NonNull;
 
 public interface OrderService {
@@ -16,7 +15,7 @@ public interface OrderService {
 
     Order createOrder(@NonNull Order order);
 
-    Order updateOrder(@NonNull Long orderId, @NonNull Order updatedOrder);
+    void updateOrder(@NonNull Long orderId, @NonNull Order updatedOrder);
 
     void deleteOrder(@NonNull Long orderId);
 }

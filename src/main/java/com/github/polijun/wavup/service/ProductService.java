@@ -3,25 +3,29 @@ package com.github.polijun.wavup.service;
 import com.github.polijun.wavup.model.Product;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
+import org.springframework.lang.NonNull;
 
 public interface ProductService {
 
     List<Product> getAllProducts();
 
-    Optional<Product> getProductById(Long productId);
+    Product getProductById(@NonNull Long productId);
 
-    List<Product> getProductsByName(String productName);
+    Product getProductsByName(String productName);
 
     List<Product> getProductsByBrand(String brand);
 
-    List<Product> getProductsByStyle(Long styleId);
+    List<Product> getProductsByStyle(@NonNull Long styleId);
 
-    List<Product> getProductsByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+    List<Product> getProductsByPriceBetween(@NonNull BigDecimal minPrice,
+            @NonNull BigDecimal maxPrice);
 
-    Product createProduct(Product product);
+    List<Product> getProductsByMultiConditions(String brand, @NonNull Long styleId,
+            @NonNull BigDecimal minPrice, @NonNull BigDecimal maxPrice);
 
-    Product updateProduct(Long productId, Product updatedProduct);
+    Product createProduct(@NonNull Product product);
 
-    void deleteProduct(Long productId);
+    void updateProduct(@NonNull Long productId, @NonNull Product updatedProduct);
+
+    void deleteProduct(@NonNull Long productId);
 }

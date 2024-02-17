@@ -3,19 +3,19 @@ package com.github.polijun.wavup.service;
 import com.github.polijun.wavup.model.Outfit;
 
 import java.util.List;
-import java.util.Optional;
+import org.springframework.lang.NonNull;
 
 public interface OutfitService {
 
     List<Outfit> getAllOutfits();
 
-    Optional<Outfit> getOutfitById(Long outfitId);
+    Outfit getOutfitById(@NonNull Long outfitId);
 
-    List<Outfit> getOutfitsByProduct(Long productId);
+    List<Outfit> getOutfitsByProduct(@NonNull Long productId);
 
-    Outfit createOutfit(Outfit outfit);
+    Outfit createOutfit(@NonNull Outfit outfit);
 
-    Outfit updateOutfit(Long outfitId, Outfit updatedOutfit);
+    void updateOutfit(@NonNull Long outfitId, @NonNull Outfit updatedOutfit);
 
-    void deleteOutfit(Long outfitId);
+    void deleteOutfit(@NonNull Long outfitId);
 }
