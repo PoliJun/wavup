@@ -2,6 +2,7 @@ package com.github.polijun.wavup.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,21 +37,21 @@ public class Product {
     private String brand;
 
     private BigDecimal price;
-    
+
     private String description;
 
     private Integer inventory;
 
     @ManyToMany
-    @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Order> orders;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Outfit> outfits;
 
-    @ManyToMany
-    @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "style_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "style_id"))
     private List<Style> styles;
 }

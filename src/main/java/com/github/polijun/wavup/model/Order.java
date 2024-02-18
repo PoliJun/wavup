@@ -43,7 +43,7 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    // @Transient
+    @Transient
     private BigDecimal bill;
 
     public void setBill() {

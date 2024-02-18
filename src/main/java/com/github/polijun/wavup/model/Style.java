@@ -17,9 +17,12 @@ import lombok.NoArgsConstructor;
  * Style
  */
 @Entity(name = "Style")
-@Table(name = "style",
-        uniqueConstraints = {
-                @UniqueConstraint(name = "style_name_unique", columnNames = "style_name")})
+@Table(name = "style"
+/*
+ * uniqueConstraints = {
+ * 
+ * @UniqueConstraint(name = "style_name_unique", columnNames = "style_name")}
+ */)
 @Data
 @Builder
 @AllArgsConstructor

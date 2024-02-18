@@ -2,6 +2,7 @@ package com.github.polijun.wavup.security.user;
 
 import java.util.List;
 import com.github.polijun.wavup.model.Order;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +37,6 @@ public class User {
     private String password;
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
 }
