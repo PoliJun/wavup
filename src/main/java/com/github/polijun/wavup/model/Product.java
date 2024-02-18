@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.polijun.wavup.model.constant.Category;
+import com.github.polijun.wavup.model.constant.Size;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,27 +34,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String name;
+    private String name;
 
-        private String brand;
+    private String brand;
 
-        private BigDecimal price;
+    private BigDecimal price;
 
-        private String description;
+    private String description;
 
-        private Integer inventory;
+    private Integer inventory;
 
-        
-        @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-        @JsonManagedReference
-        private List<Outfit> outfits;
+    private Category category;
 
-        @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-        @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
-                        inverseJoinColumns = @JoinColumn(name = "style_id"))
-        private Set<Style> styles;
+    private Size size;
+
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Outfit> outfits;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "style_id"))
+    private Set<Style> styles;
 }

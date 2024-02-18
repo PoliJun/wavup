@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.github.polijun.wavup.model.constant.OrderStatus;
 import com.github.polijun.wavup.security.user.User;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

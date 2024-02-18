@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
+import com.github.polijun.wavup.model.constant.Category;
 
 /**
  * ProductRepository
@@ -18,6 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByBrand(String brand);
 
+    List<Product> findByCategory(Category category);
 
     List<Product> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 

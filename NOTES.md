@@ -108,3 +108,52 @@ Both `@JsonIdentityInfo` and `@JsonManagedReference/@JsonBackReference` annotati
   - Integration with other custom serialization logic.
 
 Remember, both approaches have their merits and limitations. Evaluate your specific use case, complexity, and desired control level to make the best choice for your Spring Boot application.
+
+## Sprinted GPA repository interface methods naming conventions
+
+## Spring Data JPA Repository Method Naming Conventions
+
+Spring Data JPA provides a convenient way to define repository methods by following a naming convention. This allows you to express queries through method names, eliminating the need to write explicit SQL or JPQL queries for common operations. Additionally, following these conventions improves code readability and maintainability.
+
+Here's an overview of the key aspects:
+
+**Basic Structure:**
+
+```java
+public interface MyEntityRepository extends JpaRepository<MyEntity, Long> {
+
+  // Your custom methods using naming conventions
+
+}
+```
+
+**Commonly Used Prefixes:**
+
+- **findBy**: Used to fetch entities based on specific property values.
+- **getBy**: Similar to `findBy`, but typically returns a single entity.
+- **readBy**: Similar to `findBy`, but can be used for more specific retrieval logic.
+- **queryBy**: For more complex queries involving multiple properties or conditions.
+- **countBy**: Returns the number of entities matching a specific criteria.
+- **existsBy**: Checks if an entity exists based on specific property values.
+- **deleteBy**: Deletes entities based on specific property values.
+
+**Example Methods:**
+
+- `findByUsername(String username)`: Finds all entities with the given username.
+- `getByEmailIgnoreCase(String email)`: Finds a single entity based on the email address, ignoring case sensitivity.
+- `readByActiveAndCreatedDateAfter(boolean active, Date date)`: Retrieves entities that are active and created after the provided date.
+- `queryByFirstNameStartingWithAndLastNameContaining(String firstNamePrefix, String lastNamePart)`: Executes a more complex query based on multiple conditions.
+- `countByAgeGreaterThan(int age)`: Returns the number of entities with age greater than the specified value.
+- `existsByPhoneNumber(String phoneNumber)`: Checks if an entity exists with the given phone number.
+- `deleteByStatus(String status)`: Deletes entities with the specified status.
+
+**Benefits of using naming conventions:**
+
+- **Improved code readability:** Method names clearly convey their purpose.
+- **Reduced boilerplate code:** No need to write verbose SQL or JPQL queries.
+- **Maintainability:** Consistent naming conventions ease understanding and code modifications.
+- **Integration with tools:** IDEs and code analysis tools can leverage the conventions for better support.
+
+Remember, these are just some common examples. Spring Data JPA supports various other naming conventions and custom query creation options. Refer to the official documentation for a comprehensive guide: [[invalid URL removed]]([invalid URL removed])
+
+Feel free to ask if you have any further questions or specific scenarios you'd like to discuss regarding Spring Data JPA repository methods!
