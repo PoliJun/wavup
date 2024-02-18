@@ -17,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -46,12 +47,16 @@ public class Product {
 
     private String description;
 
-    private Integer inventory;
-
     private Category category;
 
     private Size size;
 
+    @Transient
+    private Integer quantity;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Inventory> inventory;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     @JsonManagedReference
@@ -61,4 +66,8 @@ public class Product {
     @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "style_id"))
     private Set<Style> styles;
+
+    public Integer getQuantity() {
+        return inventory.stream().mapToInt(Inventory::getQuantity).sum();
+    }
 }

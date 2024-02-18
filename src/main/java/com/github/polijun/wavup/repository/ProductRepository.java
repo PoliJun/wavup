@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
 import com.github.polijun.wavup.model.constant.Category;
+import com.github.polijun.wavup.model.constant.Size;
+
 
 /**
  * ProductRepository
@@ -20,6 +22,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByBrand(String brand);
 
     List<Product> findByCategory(Category category);
+
+    List<Product> findBySize(Size size);
 
     List<Product> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
 

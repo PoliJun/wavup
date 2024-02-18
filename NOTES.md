@@ -157,3 +157,261 @@ public interface MyEntityRepository extends JpaRepository<MyEntity, Long> {
 Remember, these are just some common examples. Spring Data JPA supports various other naming conventions and custom query creation options. Refer to the official documentation for a comprehensive guide: [[invalid URL removed]]([invalid URL removed])
 
 Feel free to ask if you have any further questions or specific scenarios you'd like to discuss regarding Spring Data JPA repository methods!
+
+## Use `@Putmapping` to do update operations
+
+PoliJun: @workspace This is a shopping app . In real world, I want to implement an order function. In an order, there are items of products and their amounts. Give me the code for Entities I need.
+
+GitHub Copilot: Determining workspace structure
+
+Deciding which workspace information to collect
+
+Gathering workspace info
+
+Based on your requirements, you would need an [`Order`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FOrder.java%22%2C%22Order%22%5D "src/main/java/com/github/polijun/wavup/model/Order.java") entity, a [`Product`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22Product%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java") entity, and an `OrderItem` entity to represent the relationship between an order and its products, including the quantity of each product.
+
+Here's a basic example of what these entities might look like:
+
+[`src/main/java/com/github/polijun/wavup/model/Order.java`](command:_github.copilot.openRelativePath?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FOrder.java%22%5D "src/main/java/com/github/polijun/wavup/model/Order.java")
+
+```java
+@Entity(name = "Order")
+@Table(name = "order")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private OrderStatus status;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+}
+```
+
+[`src/main/java/com/github/polijun/wavup/model/Product.java`](command:_github.copilot.openRelativePath?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java")
+
+```java
+@Entity(name = "Product")
+@Table(name = "product")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String brand;
+    private BigDecimal price;
+    private String description;
+    private Integer inventory;
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
+}
+```
+
+`src/main/java/com/github/polijun/wavup/model/OrderItem.java`
+
+```java
+@Entity(name = "OrderItem")
+@Table(name = "order_item")
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private Integer quantity;
+}
+```
+
+In this setup, an [`Order`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FOrder.java%22%2C%22Order%22%5D "src/main/java/com/github/polijun/wavup/model/Order.java") has many `OrderItem`s, each of which represents a [`Product`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22Product%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java") and the quantity of that product in the order. This allows you to have multiple different products in a single order, each with its own quantity.
+
+PoliJun: @workspace give me a json to test this create api
+
+GitHub Copilot: Determining workspace structure
+
+Deciding which workspace information to collect
+
+PoliJun: @workspace give me a json to test this create api
+
+GitHub Copilot: Determining workspace structure
+
+Deciding which workspace information to collect
+
+Gathering workspace info
+
+Based on the `createProduct` method in your [`ProductController`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fcontroller%2FProductController.java%22%2C%22ProductController%22%5D "src/main/java/com/github/polijun/wavup/controller/ProductController.java"), it seems like you need to provide a [`Product`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22Product%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java") object in your JSON. Here's an example of how you might structure your JSON:
+
+```json
+{
+  "name": "Product Name",
+  "brand": "Product Brand",
+  "price": 99.99,
+  "description": "Product Description",
+  "inventory": 100,
+  "styles": [
+    {
+      "id": 1,
+      "styleName": "Style1"
+    },
+    {
+      "id": 2,
+      "styleName": "Style2"
+    }
+  ]
+}
+```
+
+Please replace the values with the actual data you want to use for testing. Note that the [`styles`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22styles%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java") field is an array of [`Style`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FStyle.java%22%2C%22Style%22%5D "src/main/java/com/github/polijun/wavup/model/Style.java") objects, each with an [`id`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22id%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java") and [`styleName`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FStyle.java%22%2C%22styleName%22%5D "src/main/java/com/github/polijun/wavup/model/Style.java"). If your [`Style`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FStyle.java%22%2C%22Style%22%5D "src/main/java/com/github/polijun/wavup/model/Style.java") objects don't exist yet in the database, you might need to create them first before you can associate them with a [`Product`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fmodel%2FProduct.java%22%2C%22Product%22%5D "src/main/java/com/github/polijun/wavup/model/Product.java").
+
+PoliJun: @vscode see memory status in spring boot dashboard
+
+GitHub Copilot: Searching doc index....
+
+To see the memory status in the Spring Boot Dashboard, you need to enable the JMX connection for your Spring Boot application. This can be done by adding the following JVM arguments when starting your application:
+
+```plaintext
+-Dcom.sun.management.jmxremote 
+-Dcom.sun.management.jmxremote.port=9010 
+-Dcom.sun.management.jmxremote.rmi.port=9010 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.ssl=false 
+-Djava.rmi.server.hostname=localhost
+```
+
+After you've started your application with these JVM arguments, you can connect to your application using the JMX connect feature in the Spring Boot Dashboard. Once connected, you will be able to see the memory status and other useful metrics of your application.
+
+Please note that exposing the JMX port without any authentication can be a security risk. In a production environment, you should secure the JMX port with authentication and SSL.
+
+Unfortunately, there is no specific command in VS Code to directly view the memory status in the Spring Boot Dashboard.
+
+PoliJun: @workspace I have service interfaces corresponding entities, but I will have some bussiness logic combine multiple services. Is it a good practice to write them in controller layer?
+
+GitHub Copilot: Determining workspace structure
+
+Deciding which workspace information to collect
+
+Gathering workspace info
+
+No, it's not a good practice to write business logic in the controller layer. The controller layer should be kept as thin as possible and should only be responsible for handling HTTP requests and responses.
+
+Business logic should be encapsulated in the service layer. This way, the business logic can be reused across different controllers and it's easier to maintain and test.
+
+For example, in your workspace, you have a [`ProductService`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fservice%2FProductService.java%22%2C%22ProductService%22%5D "src/main/java/com/github/polijun/wavup/service/ProductService.java") and a [`StyleService`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fservice%2FStyleService.java%22%2C%22StyleService%22%5D "src/main/java/com/github/polijun/wavup/service/StyleService.java"). If you have business logic that combines these two services, you should create a new service that uses both [`ProductService`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fservice%2FProductService.java%22%2C%22ProductService%22%5D "src/main/java/com/github/polijun/wavup/service/ProductService.java") and [`StyleService`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fservice%2FStyleService.java%22%2C%22StyleService%22%5D "src/main/java/com/github/polijun/wavup/service/StyleService.java").
+
+Here's a simple example:
+
+```java
+@Service
+public class CombinedService {
+    private final ProductService productService;
+    private final StyleService styleService;
+
+    // constructor injection
+    public CombinedService(ProductService productService, StyleService styleService) {
+        this.productService = productService;
+        this.styleService = styleService;
+    }
+
+    public void someBusinessLogic() {
+        // use productService and styleService
+    }
+}
+```
+
+Then, in your controller, you can use `CombinedService`:
+
+```java
+@RestController
+@RequestMapping("/combined")
+public class CombinedController {
+    private final CombinedService combinedService;
+
+    public CombinedController(CombinedService combinedService) {
+        this.combinedService = combinedService;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> handleRequest() {
+        combinedService.someBusinessLogic();
+        return ResponseEntity.ok().build();
+    }
+}
+```
+
+This way, your business logic is encapsulated in the service layer and your controller is only responsible for handling HTTP requests and responses.
+
+PoliJun: @workspace /explain  Does this endpoint alway return 200?
+
+GitHub Copilot: The endpoint `/all` in your [`UserController`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fsecurity%2Fuser%2FUserController.java%22%2C%22UserController%22%5D "src/main/java/com/github/polijun/wavup/security/user/UserController.java") will always attempt to return a 200 OK HTTP status code as long as the [`userService.getAllUsers()`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fsecurity%2Fuser%2FUserController.java%22%2C%22userService.getAllUsers()%22%5D "src/main/java/com/github/polijun/wavup/security/user/UserController.java") method executes without throwing any exceptions.
+
+The `ResponseEntity.ok().body(userService.getAllUsers())` statement constructs a `ResponseEntity` with a status code of 200 OK and the list of users as the body.
+
+However, if [`userService.getAllUsers()`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fsecurity%2Fuser%2FUserController.java%22%2C%22userService.getAllUsers()%22%5D "src/main/java/com/github/polijun/wavup/security/user/UserController.java") throws an exception (for example, if there's an issue with the database), the controller method will fail, and depending on your exception handling setup, a different status code might be returned.
+
+If you want to handle potential exceptions and return a specific status code in those cases, you could use a try-catch block:
+
+```java
+@GetMapping("/all")
+public ResponseEntity<?> getAllUsers() {
+    try {
+        return ResponseEntity.ok().body(userService.getAllUsers());
+    } catch (Exception e) {
+        // log the exception and return a different status code
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
+```
+
+In this example, if [`userService.getAllUsers()`](command:_github.copilot.openSymbolInFile?%5B%22src%2Fmain%2Fjava%2Fcom%2Fgithub%2Fpolijun%2Fwavup%2Fsecurity%2Fuser%2FUserController.java%22%2C%22userService.getAllUsers()%22%5D "src/main/java/com/github/polijun/wavup/security/user/UserController.java") throws an exception, the server will return a 500 Internal Server Error status code.
+
+PoliJun: Should I use post mapping or Putin mapping to do update operation
+
+GitHub Copilot: For update operations, the HTTP method that is typically used is `PUT`. This is because `PUT` is idempotent, meaning that making the same request multiple times will have the same effect as making it once. This is ideal for update operations, where you want to set the state of a resource to a specific value.
+
+Here's an example of how you might use `PUT` in a Spring controller:
+
+```java
+@PutMapping("/products/{id}")
+public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody Product product) {
+    Product existingProduct = productService.getProduct(id);
+    if (existingProduct == null) {
+        return ResponseEntity.notFound().build();
+    }
+    existingProduct.setName(product.getName());
+    existingProduct.setPrice(product.getPrice());
+    // update other fields as necessary
+    productService.saveProduct(existingProduct);
+    return ResponseEntity.ok().build();
+}
+```
+
+In this example, the `updateProduct` method takes an `id` and a `Product` object as parameters. It first checks if a product with the given `id` exists. If it does, it updates the fields of the existing product with the values from the provided `Product` object, saves the updated product, and returns a 200 OK status code. If a product with the given `id` does not exist, it returns a 404 Not Found status code.
+
+However, if you want to partially update a resource (i.e., update some but not all fields), you might want to use the `PATCH` method instead. The `PATCH` method is not idempotent and is used to apply partial modifications to a resource.
