@@ -1,6 +1,7 @@
 package com.github.polijun.wavup.security.user;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.polijun.wavup.model.Order;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -38,5 +39,6 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Order> orders;
 }

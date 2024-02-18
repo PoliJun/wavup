@@ -1,7 +1,11 @@
 package com.github.polijun.wavup.model;
 
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,12 +21,10 @@ import lombok.NoArgsConstructor;
  * Style
  */
 @Entity(name = "Style")
-@Table(name = "style"
-/*
- * uniqueConstraints = {
- * 
- * @UniqueConstraint(name = "style_name_unique", columnNames = "style_name")}
- */)
+@Table(name = "style",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "style_name_unique", columnNames = "style_name")})
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Data
 @Builder
 @AllArgsConstructor
@@ -35,6 +37,5 @@ public class Style {
 
     private String styleName;
 
-    @ManyToMany(mappedBy = "styles")
-    private List<Product> products;
+
 }

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/bystyle")
+    @PostMapping("/bystyle")
     public List<Product> getByStyles(@RequestBody List<Style> styles) {
         List<Product> products = productService.getProductsByStyles(styles);
         return products;
@@ -32,4 +32,11 @@ public class ProductController {
     public Product createProduct(@RequestBody Product product) {
         return productService.createProduct(product);
     }
+
+    @GetMapping("/all")
+    public List<Product> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return products;
+    }
+
 }

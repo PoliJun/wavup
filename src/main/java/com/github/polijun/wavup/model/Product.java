@@ -2,8 +2,13 @@ package com.github.polijun.wavup.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -12,6 +17,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,36 +28,34 @@ import lombok.NoArgsConstructor;
  */
 @Entity(name = "Product")
 @Table(name = "product")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
 
-    private String name;
+        private String name;
 
-    private String brand;
+        private String brand;
 
-    private BigDecimal price;
+        private BigDecimal price;
 
-    private String description;
+        private String description;
 
-    private Integer inventory;
+        private Integer inventory;
 
-    @ManyToMany
-    @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Order> orders;
+        
+        @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+        @JsonManagedReference
+        private List<Outfit> outfits;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Outfit> outfits;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST})
-    @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "style_id"))
-    private List<Style> styles;
+        @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+        @JoinTable(name = "product_style", joinColumns = @JoinColumn(name = "product_id"),
+                        inverseJoinColumns = @JoinColumn(name = "style_id"))
+        private Set<Style> styles;
 }

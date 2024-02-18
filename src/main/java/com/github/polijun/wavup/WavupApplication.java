@@ -16,17 +16,17 @@ public class WavupApplication {
 		SpringApplication.run(WavupApplication.class, args);
 	}
 
-	@Bean
-    CommandLineRunner commandLineRunner(ProductRepository productRepository) {
-        return args -> {
-            Style style1 = Style.builder().styleName("fancy").build();
-            Style style2 = Style.builder().styleName("tushei").build();
+	// @Bean
+    // CommandLineRunner commandLineRunner(ProductRepository productRepository) {
+    //     return args -> {
+    //         Style style1 = Style.builder().styleName("fancy").build();
+    //         Style style2 = Style.builder().styleName("tushei").build();
 
-            // Create a Product with a list containing the created Style
-            Product product = Product.builder().styles(List.of(style1, style2)).build();
+    //         // Create a Product with a list containing the created Style
+    //         Product product = Product.builder().styles(List.of(style1, style2)).build();
 
-            // Save the Product to the repository
-            productRepository.save(product);
-        };
-    }
+    //         // Save the Product to the repository
+    //         productRepository.save(product);
+    //     };
+    // }
 }

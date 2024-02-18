@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
+import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
 import com.github.polijun.wavup.repository.StyleRepository;
 import com.github.polijun.wavup.service.StyleService;
@@ -53,7 +54,7 @@ public class StyleServiceImpl implements StyleService {
     public void updateStyle(Long styleId, Style updatedStyle) {
         Style styleExists =
                 styleRepository.findById(styleId).orElseThrow(() -> new NonExistsException(STYLE));
-        styleExists.setProducts(updatedStyle.getProducts());
+        // styleExists.setProducts(updatedStyle.getProducts());
         styleExists.setStyleName(updatedStyle.getStyleName());
     }
 
@@ -66,5 +67,10 @@ public class StyleServiceImpl implements StyleService {
             throw new NonExistsException(STYLE);
         }
     }
+
+	// @Override
+	// public List<Style> getStylesByProduct(Product product) {
+	// 	return styleRepository.findByProductsContaining(product);
+	// }
 
 }

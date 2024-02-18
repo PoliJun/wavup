@@ -14,5 +14,9 @@
             "password": ""
         }
     ],
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "[java]": {
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": true
+    }
 }

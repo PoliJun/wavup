@@ -1,5 +1,6 @@
 package com.github.polijun.wavup.service;
 
+import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface StyleService {
     Style getStyleByStyleName(String styleName);
 
     Style getStyleById(Long styleId);
+
+    // List<Style> getStylesByProduct(Product product);
 
     Style createStyle(Style style);
 

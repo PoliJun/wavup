@@ -46,7 +46,6 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(@NonNull Long orderId, @NonNull Order updatedOrder) {
         Order orderExist = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NonExistsException("Order"));
-        orderExist.setProducts(updatedOrder.getProducts());
         orderExist.setCreatedAt(updatedOrder.getCreatedAt());
         orderExist.setStatus(updatedOrder.getStatus());
         orderExist.setUser(updatedOrder.getUser());

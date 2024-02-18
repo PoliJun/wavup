@@ -18,6 +18,5 @@ public interface StyleRepository extends JpaRepository<Style, Long> {
 
     Optional<Style> findByStyleName(String styleName);
 
-    List<Style> findByProductsIn(List<Product> products);
-
+    // List<Style> findByProductsContaining(Product product);
 }
