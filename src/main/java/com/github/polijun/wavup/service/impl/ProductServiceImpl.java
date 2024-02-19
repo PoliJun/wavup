@@ -12,6 +12,7 @@ import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
+import com.github.polijun.wavup.model.constant.Category;
 import com.github.polijun.wavup.repository.ProductRepository;
 import com.github.polijun.wavup.service.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +56,7 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    
     @Override
     public List<Product> getProductsByPriceBetween(@NonNull BigDecimal minPrice,
             @NonNull BigDecimal maxPrice) {
@@ -104,6 +106,12 @@ public class ProductServiceImpl implements ProductService {
 
         return intersection;
     }
+
+	@Override
+	public List<Product> getProductsByCategory(Category category) {
+        return productRepository.findByCategory(category);
+    
+	}
 
 
 

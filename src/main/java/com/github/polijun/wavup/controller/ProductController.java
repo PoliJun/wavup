@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
+import com.github.polijun.wavup.model.constant.Category;
 import com.github.polijun.wavup.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
@@ -50,7 +51,7 @@ public class ProductController {
     }
 
     // get product by name
-    @GetMapping("/name")
+    @GetMapping("/{name}")
     public ResponseEntity<Product> getProductsByName(@PathVariable String name) {
         try {
             return ResponseEntity.ok().body(productService.getProductsByName(name));
@@ -60,7 +61,7 @@ public class ProductController {
     }
 
     // get product by brand
-    @GetMapping("/brand")
+    @GetMapping("/{brand}")
     public ResponseEntity<List<Product>> getProductsByBrand(@PathVariable String brand) {
         try {
             return ResponseEntity.ok().body(productService.getProductsByBrand(brand));
@@ -69,6 +70,15 @@ public class ProductController {
         }
     }
 
+    // get product by category
+    @GetMapping("/{category}")
+    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable Category category) {
+        try {
+            return ResponseEntity.ok().body(productService.getProductsByCategory(category));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
     // create product
     @PostMapping("/create")
     public ResponseEntity<Product> createProduct(@RequestBody @NonNull Product product) {

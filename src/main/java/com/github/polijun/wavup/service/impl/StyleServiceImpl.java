@@ -68,9 +68,9 @@ public class StyleServiceImpl implements StyleService {
         }
     }
 
-	// @Override
-	// public List<Style> getStylesByProduct(Product product) {
-	// 	return styleRepository.findByProductsContaining(product);
-	// }
+    // @Override
+    // public List<Style> getStylesByProduct(Product product) {
+    // return styleRepository.findByProducts(product);
+    // }
 
 }

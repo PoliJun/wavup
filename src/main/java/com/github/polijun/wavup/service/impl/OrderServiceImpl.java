@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Order;
 import com.github.polijun.wavup.repository.OrderRepository;
+import com.github.polijun.wavup.security.user.User;
 import com.github.polijun.wavup.service.OrderService;
 import lombok.RequiredArgsConstructor;
 
@@ -32,8 +33,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getOrdersByUser(@NonNull Long userId) {
-        return orderRepository.findByUserId(userId);
+    public List<Order> getOrdersByUser(@NonNull User user) {
+        return orderRepository.findByUser(user);
     }
 
     @Override

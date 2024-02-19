@@ -1,8 +1,10 @@
 package com.github.polijun.wavup.controller;
 
 import java.util.List;
+import org.hibernate.annotations.Polymorphism;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,78 +12,74 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.github.polijun.wavup.model.Delivery;
 import com.github.polijun.wavup.model.Order;
-import com.github.polijun.wavup.security.user.User;
-import com.github.polijun.wavup.service.OrderService;
+import com.github.polijun.wavup.service.DeliveryService;
 import lombok.RequiredArgsConstructor;
 
-/**
- * OrderController
- */
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/deliveries")
 @RequiredArgsConstructor
-public class OrderController {
-    private final OrderService orderService;
+public class DeliveryController {
+    private final DeliveryService deliveryService;
 
-    // get all orders
+    // get all deliveries
     @GetMapping("/all")
-    public ResponseEntity<List<Order>> getAllOrders() {
+    public ResponseEntity<List<Delivery>> getAllDeliveries() {
         try {
-            return ResponseEntity.ok().body(orderService.getAllOrders());
+            return ResponseEntity.ok().body(deliveryService.getAllDeliveries());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // get order by id
+    // get delivery by id
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+    public ResponseEntity<Delivery> getDeliveryById(@PathVariable Long id) {
         try {
-            return ResponseEntity.ok().body(orderService.getOrderById(id));
+            return ResponseEntity.ok().body(deliveryService.getDeliveryById(id));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // get orders by user
-    @PostMapping("/orders")
-    public ResponseEntity<List<Order>> getOrdersByUser(@RequestBody User user) {
+    // get delivery by order
+    @PostMapping("/order")
+    public ResponseEntity<Delivery> getDeliveryByOrder(@RequestBody Order order) {
         try {
-            return ResponseEntity.ok().body(orderService.getOrdersByUser(user));
+            return ResponseEntity.ok().body(deliveryService.getDeliveryByOrder(order));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // create order
-    @PostMapping("/create")
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order orderCreated;
+    // create delivery
+    @PostMapping("/create/auth")
+    public ResponseEntity<Delivery> createDelivery(@RequestBody Delivery delivery) {
         try {
-            orderCreated = orderService.createOrder(order);
-            return ResponseEntity.ok().body(orderCreated);
+            return ResponseEntity.ok().body(deliveryService.createDelivery(delivery));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // update order
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order updatedOrder) {
+    // update delivery
+    @PutMapping("/update/{id}/auth")
+    public ResponseEntity<Delivery> updateDelivery(@PathVariable Long id,
+            @RequestBody Delivery updatedDelivery) {
         try {
-            orderService.updateOrder(id, updatedOrder);
+            deliveryService.updateDelivery(id, updatedDelivery);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // delete order by id
-    @PutMapping("/delete/{id}")
-    public ResponseEntity<Order> deleteOrder(@PathVariable Long id) {
+    // delete delivery
+    @DeleteMapping("/delete/{id}/auth")
+    public ResponseEntity<Delivery> deleteDelivery(@PathVariable Long id) {
         try {
-            orderService.deleteOrder(id);
+            deliveryService.deleteDelivery(id);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

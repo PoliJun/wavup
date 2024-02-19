@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,9 @@ public class Order {
     @JsonBackReference
     private User user;
 
+    @OneToOne(mappedBy = "order", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private Delivery delivery;
+
     private OrderStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -54,8 +58,8 @@ public class Order {
     private BigDecimal bill;
 
     public BigDecimal getBill() {
-        return orderItems.stream()
-                .map(item -> item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())))
+        return orderItems.stream().map(
+                item -> item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

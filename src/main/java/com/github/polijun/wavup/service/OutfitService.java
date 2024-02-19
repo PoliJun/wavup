@@ -1,7 +1,7 @@
 package com.github.polijun.wavup.service;
 
 import com.github.polijun.wavup.model.Outfit;
-
+import com.github.polijun.wavup.model.Product;
 import java.util.List;
 import org.springframework.lang.NonNull;
 
@@ -11,7 +11,7 @@ public interface OutfitService {
 
     Outfit getOutfitById(@NonNull Long outfitId);
 
-    List<Outfit> getOutfitsByProduct(@NonNull Long productId);
+    List<Outfit> getOutfitsByProduct(@NonNull Product product);
 
     Outfit createOutfit(@NonNull Outfit outfit);
 

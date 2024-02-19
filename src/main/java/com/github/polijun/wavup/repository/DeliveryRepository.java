@@ -1,18 +1,18 @@
 package com.github.polijun.wavup.repository;
 
-import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.github.polijun.wavup.model.Delivery;
 import com.github.polijun.wavup.model.Order;
-import com.github.polijun.wavup.security.user.User;
 
 /**
- * OrderRepository
+ * l
  */
 @Repository
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
-    List<Order> findByUser(User user);
+    Optional<Delivery> findByOrder(Order order);
 
-
+    
 }

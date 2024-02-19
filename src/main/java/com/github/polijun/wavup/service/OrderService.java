@@ -1,7 +1,7 @@
 package com.github.polijun.wavup.service;
 
 import com.github.polijun.wavup.model.Order;
-
+import com.github.polijun.wavup.security.user.User;
 import java.util.List;
 import org.springframework.lang.NonNull;
 
@@ -11,7 +11,7 @@ public interface OrderService {
 
     Order getOrderById(@NonNull Long orderId);
 
-    List<Order> getOrdersByUser(@NonNull Long userId);
+    List<Order> getOrdersByUser(@NonNull User user);
 
     Order createOrder(@NonNull Order order);
 

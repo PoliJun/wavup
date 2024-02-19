@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Outfit;
+import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.repository.OutfitRepository;
 import com.github.polijun.wavup.service.OutfitService;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class OutfitServiceImpl implements OutfitService {
     }
 
     @Override
-    public List<Outfit> getOutfitsByProduct(@NonNull Long productId) {
-        return outfitRepository.findByProductId(productId);
+    public List<Outfit> getOutfitsByProduct(@NonNull Product product) {
+        return outfitRepository.findByProduct(product);
     }
 
     @Override

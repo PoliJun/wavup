@@ -142,7 +142,7 @@ public interface MyEntityRepository extends JpaRepository<MyEntity, Long> {
 - `findByUsername(String username)`: Finds all entities with the given username.
 - `getByEmailIgnoreCase(String email)`: Finds a single entity based on the email address, ignoring case sensitivity.
 - `readByActiveAndCreatedDateAfter(boolean active, Date date)`: Retrieves entities that are active and created after the provided date.
-- `queryByFirstNameStartingWithAndLastNameContaining(String firstNamePrefix, String lastNamePart)`: Executes a more complex query based on multiple conditions.
+- `queryByFirstNameStartingWithAndLastName(String firstNamePrefix, String lastNamePart)`: Executes a more complex query based on multiple conditions.
 - `countByAgeGreaterThan(int age)`: Returns the number of entities with age greater than the specified value.
 - `existsByPhoneNumber(String phoneNumber)`: Checks if an entity exists with the given phone number.
 - `deleteByStatus(String status)`: Deletes entities with the specified status.
