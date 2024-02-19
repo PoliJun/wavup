@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<User> login(@RequestParam String email) {
+    public ResponseEntity<User> login(@PathVariable String email) {
         try {
             return ResponseEntity.ok().body(userService.getUserByEmail(email));
         } catch (Exception e) {
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@RequestParam @NonNull Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable @NonNull Long id) {
         try {
             return ResponseEntity.ok().body(userService.getUserById(id));
         } catch (Exception e) {
@@ -74,9 +74,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}") 
-    public ResponseEntity<String> deleteMethodName(@PathVariable String id) {
+    public ResponseEntity<String> deleteMethodName(@PathVariable @NonNull Long id) {
         try {
-            userService.deleteUser(Long.parseLong(id));
+            userService.deleteUser(id);
             return ResponseEntity.ok("Success");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
