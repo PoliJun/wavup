@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -74,7 +73,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}") // Added delete endpoint
+    @DeleteMapping("/{id}") 
     public ResponseEntity<String> deleteMethodName(@PathVariable String id) {
         try {
             userService.deleteUser(Long.parseLong(id));
