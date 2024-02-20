@@ -1,9 +1,7 @@
 package com.github.polijun.wavup.security.user;
 
-import com.github.polijun.wavup.model.Order;
 
 import java.util.List;
-import java.util.Optional;
 import org.springframework.lang.NonNull;
 
 public interface UserService {

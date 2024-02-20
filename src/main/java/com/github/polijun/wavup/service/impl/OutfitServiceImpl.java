@@ -1,12 +1,10 @@
 package com.github.polijun.wavup.service.impl;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Outfit;
 import com.github.polijun.wavup.model.Product;

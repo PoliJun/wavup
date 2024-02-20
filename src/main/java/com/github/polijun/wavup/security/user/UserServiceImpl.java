@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
-import com.github.polijun.wavup.model.Order;
 import lombok.RequiredArgsConstructor;
 
 /**

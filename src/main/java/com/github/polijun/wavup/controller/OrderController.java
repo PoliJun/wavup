@@ -3,6 +3,7 @@ package com.github.polijun.wavup.controller;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +37,7 @@ public class OrderController {
 
     // get order by id
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+    public ResponseEntity<Order> getOrderById(@PathVariable @NonNull Long id) {
         try {
             return ResponseEntity.ok().body(orderService.getOrderById(id));
         } catch (Exception e) {
@@ -46,7 +47,7 @@ public class OrderController {
 
     // get orders by user
     @PostMapping("/orders")
-    public ResponseEntity<List<Order>> getOrdersByUser(@RequestBody User user) {
+    public ResponseEntity<List<Order>> getOrdersByUser(@RequestBody @NonNull User user) {
         try {
             return ResponseEntity.ok().body(orderService.getOrdersByUser(user));
         } catch (Exception e) {
@@ -56,7 +57,7 @@ public class OrderController {
 
     // create order
     @PostMapping("/create")
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> createOrder(@RequestBody @NonNull Order order) {
         Order orderCreated;
         try {
             orderCreated = orderService.createOrder(order);
@@ -68,7 +69,8 @@ public class OrderController {
 
     // update order
     @PutMapping("/update/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable Long id, @RequestBody Order updatedOrder) {
+    public ResponseEntity<Order> updateOrder(@PathVariable @NonNull Long id,
+            @RequestBody @NonNull Order updatedOrder) {
         try {
             orderService.updateOrder(id, updatedOrder);
             return ResponseEntity.ok().build();
@@ -79,7 +81,7 @@ public class OrderController {
 
     // delete order by id
     @PutMapping("/delete/{id}")
-    public ResponseEntity<Order> deleteOrder(@PathVariable Long id) {
+    public ResponseEntity<Order> deleteOrder(@PathVariable @NonNull Long id) {
         try {
             orderService.deleteOrder(id);
             return ResponseEntity.ok().build();

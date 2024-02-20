@@ -1,9 +1,9 @@
 package com.github.polijun.wavup.controller;
 
 import java.util.List;
-import org.hibernate.annotations.Polymorphism;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +35,7 @@ public class DeliveryController {
 
     // get delivery by id
     @GetMapping("/{id}")
-    public ResponseEntity<Delivery> getDeliveryById(@PathVariable Long id) {
+    public ResponseEntity<Delivery> getDeliveryById(@PathVariable @NonNull Long id) {
         try {
             return ResponseEntity.ok().body(deliveryService.getDeliveryById(id));
         } catch (Exception e) {
@@ -45,7 +45,7 @@ public class DeliveryController {
 
     // get delivery by order
     @PostMapping("/order")
-    public ResponseEntity<Delivery> getDeliveryByOrder(@RequestBody Order order) {
+    public ResponseEntity<Delivery> getDeliveryByOrder(@RequestBody @NonNull Order order) {
         try {
             return ResponseEntity.ok().body(deliveryService.getDeliveryByOrder(order));
         } catch (Exception e) {
@@ -55,7 +55,7 @@ public class DeliveryController {
 
     // create delivery
     @PostMapping("/create/auth")
-    public ResponseEntity<Delivery> createDelivery(@RequestBody Delivery delivery) {
+    public ResponseEntity<Delivery> createDelivery(@RequestBody @NonNull Delivery delivery) {
         try {
             return ResponseEntity.ok().body(deliveryService.createDelivery(delivery));
         } catch (Exception e) {
@@ -65,8 +65,8 @@ public class DeliveryController {
 
     // update delivery
     @PutMapping("/update/{id}/auth")
-    public ResponseEntity<Delivery> updateDelivery(@PathVariable Long id,
-            @RequestBody Delivery updatedDelivery) {
+    public ResponseEntity<Delivery> updateDelivery(@PathVariable @NonNull Long id,
+            @RequestBody @NonNull Delivery updatedDelivery) {
         try {
             deliveryService.updateDelivery(id, updatedDelivery);
             return ResponseEntity.ok().build();
@@ -77,7 +77,7 @@ public class DeliveryController {
 
     // delete delivery
     @DeleteMapping("/delete/{id}/auth")
-    public ResponseEntity<Delivery> deleteDelivery(@PathVariable Long id) {
+    public ResponseEntity<Delivery> deleteDelivery(@PathVariable @NonNull Long id) {
         try {
             deliveryService.deleteDelivery(id);
             return ResponseEntity.ok().build();

@@ -3,11 +3,11 @@ package com.github.polijun.wavup.service.impl;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
-import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
 import com.github.polijun.wavup.repository.StyleRepository;
 import com.github.polijun.wavup.service.StyleService;
@@ -34,12 +34,12 @@ public class StyleServiceImpl implements StyleService {
     }
 
     @Override
-    public Style getStyleById(Long styleId) {
+    public Style getStyleById(@NonNull Long styleId) {
         return styleRepository.findById(styleId).orElseThrow(() -> new NonExistsException(STYLE));
     }
 
     @Override
-    public Style createStyle(Style style) {
+    public Style createStyle(@NonNull Style style) {
         String styleName = Objects.requireNonNull(style.getStyleName());
         Optional<Style> styleExists = styleRepository.findByStyleName(styleName);
         if (!styleExists.isPresent()) {
@@ -51,7 +51,7 @@ public class StyleServiceImpl implements StyleService {
 
     @Override
     @Transactional
-    public void updateStyle(Long styleId, Style updatedStyle) {
+    public void updateStyle(@NonNull Long styleId, @NonNull Style updatedStyle) {
         Style styleExists =
                 styleRepository.findById(styleId).orElseThrow(() -> new NonExistsException(STYLE));
         // styleExists.setProducts(updatedStyle.getProducts());
@@ -59,7 +59,7 @@ public class StyleServiceImpl implements StyleService {
     }
 
     @Override
-    public void deleteStyle(Long styleId) {
+    public void deleteStyle(@NonNull Long styleId) {
         Optional<Style> styleExists = styleRepository.findById(styleId);
         if (styleExists.isPresent()) {
             styleRepository.deleteById(styleId);

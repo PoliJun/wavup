@@ -3,6 +3,7 @@ package com.github.polijun.wavup.controller;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,7 @@ public class OutfitController {
 
     // get outfit by id
     @GetMapping("/{id}")
-    public ResponseEntity<Outfit> getOutfitById(@PathVariable Long id) {
+    public ResponseEntity<Outfit> getOutfitById(@PathVariable @NonNull Long id) {
         try {
             return ResponseEntity.ok().body(outfitService.getOutfitById(id));
         } catch (Exception e) {
@@ -47,7 +48,7 @@ public class OutfitController {
 
     // get by product
     @PostMapping("/product")
-    public ResponseEntity<List<Outfit>> getOutfitsByProduct(@RequestBody Product product) {
+    public ResponseEntity<List<Outfit>> getOutfitsByProduct(@RequestBody @NonNull Product product) {
         try {
             return ResponseEntity.ok().body(outfitService.getOutfitsByProduct(product));
         } catch (Exception e) {
@@ -57,7 +58,7 @@ public class OutfitController {
 
     // create outfit
     @PostMapping("/create/Admin")
-    public ResponseEntity<Outfit> createOutfit(@RequestBody Outfit outfit) {
+    public ResponseEntity<Outfit> createOutfit(@RequestBody @NonNull Outfit outfit) {
         Outfit outfitCreated;
         try {
             outfitCreated = outfitService.createOutfit(outfit);
@@ -69,8 +70,8 @@ public class OutfitController {
 
     // update outfit
     @PutMapping("/update/{id}/Admin")
-    public ResponseEntity<Outfit> updateOutfit(@PathVariable Long id,
-            @RequestBody Outfit updatedOutfit) {
+    public ResponseEntity<Outfit> updateOutfit(@PathVariable @NonNull Long id,
+            @RequestBody @NonNull Outfit updatedOutfit) {
         try {
             outfitService.updateOutfit(id, updatedOutfit);
             return ResponseEntity.ok().build();
@@ -81,7 +82,7 @@ public class OutfitController {
 
     // delete outfit
     @DeleteMapping("/delete/{id}/Admin")
-    public ResponseEntity<Outfit> deleteOutfit(@PathVariable Long id) {
+    public ResponseEntity<Outfit> deleteOutfit(@PathVariable @NonNull Long id) {
         try {
             outfitService.deleteOutfit(id);
             return ResponseEntity.ok().build();

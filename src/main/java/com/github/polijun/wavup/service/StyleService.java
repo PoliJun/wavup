@@ -1,10 +1,9 @@
 package com.github.polijun.wavup.service;
 
-import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
 
 import java.util.List;
-import java.util.Optional;
+import org.springframework.lang.NonNull;
 
 public interface StyleService {
 
@@ -12,13 +11,13 @@ public interface StyleService {
 
     Style getStyleByStyleName(String styleName);
 
-    Style getStyleById(Long styleId);
+    Style getStyleById(@NonNull Long styleId);
 
     // List<Style> getStylesByProduct(Product product);
 
-    Style createStyle(Style style);
+    Style createStyle(@NonNull Style style);
 
-    void updateStyle(Long styleId, Style updatedStyle);
+    void updateStyle(@NonNull Long styleId, @NonNull Style updatedStyle);
 
-    void deleteStyle(Long styleId);
+    void deleteStyle(@NonNull Long styleId);
 }

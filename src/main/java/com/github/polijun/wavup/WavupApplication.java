@@ -1,13 +1,7 @@
 package com.github.polijun.wavup;
 
-import java.util.List;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import com.github.polijun.wavup.model.Product;
-import com.github.polijun.wavup.model.Style;
-import com.github.polijun.wavup.repository.ProductRepository;
 
 @SpringBootApplication
 public class WavupApplication {
