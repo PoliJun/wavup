@@ -1,32 +1,37 @@
 package com.github.polijun.wavup.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.IOException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.github.polijun.wavup.exception.ImageNotFoundException;
+import com.github.polijun.wavup.service.OutfitService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.github.polijun.wavup.exception.ImageNotFoundException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
  * ImageController
  */
 @Controller
-@RequestMapping("/image")
+@RequestMapping("/images")
+@RequiredArgsConstructor
 public class ImageController {
-    private static final String IMAGE_PATH = "src/main/resources/static/img/";
+    private final OutfitService outfitService;
 
-    // get image file by file name
     @GetMapping("/{fileName}")
-    public ResponseEntity<byte[]> getImage(@PathVariable String fileName) {
+    public ResponseEntity<byte[]> getMethodName(@PathVariable String fileName) {
         try {
-            return ResponseEntity.ok().body(Files.readAllBytes(Paths.get(IMAGE_PATH + fileName)));
+            return ResponseEntity.ok().body(outfitService.getOutfitImage(fileName));
+        } catch (ImageNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            throw new ImageNotFoundException();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
+
 
 }

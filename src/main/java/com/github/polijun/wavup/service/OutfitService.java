@@ -13,6 +13,8 @@ public interface OutfitService {
 
     List<Outfit> getOutfitsByProduct(@NonNull Product product);
 
+    byte[] getOutfitImage(String fileName);
+
     Outfit createOutfit(@NonNull Outfit outfit);
 
     void updateOutfit(@NonNull Long outfitId, @NonNull Outfit updatedOutfit);

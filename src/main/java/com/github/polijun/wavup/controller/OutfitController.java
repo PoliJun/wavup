@@ -68,6 +68,8 @@ public class OutfitController {
         }
     }
 
+    
+
     // update outfit
     @PutMapping("/update/{id}/Admin")
     public ResponseEntity<Outfit> updateOutfit(@PathVariable @NonNull Long id,
