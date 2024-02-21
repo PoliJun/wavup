@@ -19,5 +19,6 @@
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
     },
-    "java.format.settings.url": "/Users/huntley/eclipse-java-google-style.xml"
+    "java.format.settings.url": "/Users/huntley/eclipse-java-google-style.xml",
+    "maven.view": "flat"
 }
