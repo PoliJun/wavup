@@ -17,6 +17,7 @@
     "java.compile.nullAnalysis.mode": "automatic",
     "[java]": {
         "editor.insertSpaces": true,
-        "editor.detectIndentation": true
-    }
+        "editor.detectIndentation": false
+    },
+    "java.format.settings.url": "/Users/huntley/eclipse-java-google-style.xml"
 }
