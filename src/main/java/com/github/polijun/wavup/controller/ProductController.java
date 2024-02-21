@@ -2,9 +2,6 @@ package com.github.polijun.wavup.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.github.polijun.wavup.exception.AlreadyExistsException;
-import com.github.polijun.wavup.exception.ApiRequestException;
-import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.constant.Category;
 import com.github.polijun.wavup.service.ProductService;
