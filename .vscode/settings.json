@@ -1,0 +1,22 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "editor.insertSpaces": true,
+    "cSpell.words": ["polijun", "wavup"],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "127.0.0.1",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "wavup",
+            "database": "wavup",
+            "username": "huntley",
+            "password": ""
+        }
+    ],
+    "java.compile.nullAnalysis.mode": "automatic",
+    "[java]": {
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": true
+    }
+}
