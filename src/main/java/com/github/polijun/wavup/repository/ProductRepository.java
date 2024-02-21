@@ -29,4 +29,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByStylesIn(List<Style> styles);
 
+    boolean existsByName(String productName);
+
 }

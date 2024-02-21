@@ -3,10 +3,13 @@ package com.github.polijun.wavup.service.impl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.github.polijun.wavup.exception.AlreadyExistsException;
 import com.github.polijun.wavup.exception.NonExistsException;
 import com.github.polijun.wavup.model.Product;
 import com.github.polijun.wavup.model.Style;
@@ -54,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    
+
     @Override
     public List<Product> getProductsByPriceBetween(@NonNull BigDecimal minPrice,
             @NonNull BigDecimal maxPrice) {
@@ -64,7 +67,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(@NonNull Product product) {
-        return productRepository.save(product);
+        String productName = product.getName();
+        if (!productRepository.existsByName(productName)) {
+            return productRepository.save(product);
+        } else {
+            throw new AlreadyExistsException(PRODUCT);
+        }
     }
 
     @Override
@@ -105,11 +113,11 @@ public class ProductServiceImpl implements ProductService {
         return intersection;
     }
 
-	@Override
-	public List<Product> getProductsByCategory(Category category) {
+    @Override
+    public List<Product> getProductsByCategory(Category category) {
         return productRepository.findByCategory(category);
-    
-	}
+
+    }
 
 
 
