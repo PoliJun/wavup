@@ -8,6 +8,7 @@ import java.util.function.Function;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY = "JlcrvqyqOw9ES96mr044wh6ds6fV0SPi";
+    @Value("${secret.key}")
+    private String secretKey;
 
     // extract username from jwt token
     public String extractUsername(String token) {
@@ -28,8 +30,7 @@ public class JwtService {
 
     // extract claims from jwt token
     /**
-     * @
-     * @param <T>
+     * @ @param <T>
      * @param token
      * @param claimsResolver
      * @return claimsResolver
@@ -77,7 +78,7 @@ public class JwtService {
      * @return Secretkey
      */
     private SecretKey getSecretKey() {
-        byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 

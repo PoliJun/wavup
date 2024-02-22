@@ -13,3 +13,5 @@ spring:
                 globally_quoted_identifiers: true
             database: postgresql
             database-platform: org.hibernate.dialect.postgreSQLDialect
+secret: 
+    key: JlcrvqyqOw9ES96mr044wh6ds6fV0SPi
