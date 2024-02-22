@@ -1,7 +1,11 @@
 {
     "java.configuration.updateBuildConfiguration": "interactive",
     "editor.insertSpaces": true,
-    "cSpell.words": ["polijun", "wavup"],
+    "cSpell.words": [
+        "polijun",
+        "Userdetails",
+        "wavup"
+    ],
     "sqltools.connections": [
         {
             "previewLimit": 50,
