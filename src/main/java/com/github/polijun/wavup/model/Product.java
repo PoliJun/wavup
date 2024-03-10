@@ -71,3 +71,4 @@ public class Product {
         return inventory.stream().mapToInt(Inventory::getQuantity).sum();
     }
 }
+// json: javascript standard object notation
