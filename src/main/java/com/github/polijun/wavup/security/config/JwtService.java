@@ -5,10 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,11 @@ public class JwtService {
     // extract username from jwt token
     public String extractUsername(String token) {
         return extractClaims(token, Claims::getSubject);
+    }
+
+    // extract roles from jwt token
+    public String extractRoles(String token) {
+        return extractClaims(token, claims -> claims.get("roles", String.class));
     }
 
 
@@ -59,6 +67,8 @@ public class JwtService {
         return Jwts.builder().claims(extractClaims).subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .signWith(getSecretKey()).compact();
     }
 
