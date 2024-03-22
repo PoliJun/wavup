@@ -9,12 +9,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.github.polijun.wavup.exception.NonExistsException;
-import com.github.polijun.wavup.security.user.User;
 import com.github.polijun.wavup.security.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,12 +28,11 @@ public class ApplicationConfig {
     @Bean
     UserDetailsService userDetailsService() {
         return username -> {
-            User user = userRepository.findByEmail(username)
+            var user = userRepository.findByEmail(username)
                     .orElseThrow(() -> new NonExistsException("User"));
             List<SimpleGrantedAuthority> authorities =
                     List.of(new SimpleGrantedAuthority(user.getRole().name()));
-            return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                    user.getPassword(), authorities);
+            return new User(user.getUsername(), user.getPassword(), authorities);
         };
     }
 
