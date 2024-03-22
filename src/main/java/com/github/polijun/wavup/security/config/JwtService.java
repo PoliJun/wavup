@@ -31,8 +31,8 @@ public class JwtService {
     }
 
     // extract roles from jwt token
-    public String extractRoles(String token) {
-        return extractClaims(token, claims -> claims.get("roles", String.class));
+    public String extractRole(String token) {
+        return extractClaims(token, claims -> claims.get("role", String.class));
     }
 
 
@@ -67,7 +67,7 @@ public class JwtService {
         return Jwts.builder().claims(extractClaims).subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
-                .claim("roles", userDetails.getAuthorities().stream()
+                .claim("role", userDetails.getAuthorities().stream()
                         .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .signWith(getSecretKey()).compact();
     }
